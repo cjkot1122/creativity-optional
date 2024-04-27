@@ -30,9 +30,14 @@ def arrayToImage(data):
     return img
 
 def multiplier(pixel, hueM, satM, valM):
-    return [np.uint8(pixel[0] * hueM), np.uint8(pixel[1] * satM), np.uint8(pixel[2] * valM)]
+    return [np.clip(pixel[0] * hueM, 0, 255).astype(np.uint8),
+            np.clip(pixel[1] * satM, 0, 255).astype(np.uint8),
+            np.clip(pixel[2] * valM, 0, 255).astype(np.uint8)]
+
 def shift(pixel, hueS, satS, valS):
-    return [np.uint8(pixel[0] + hueS), np.uint8(pixel[1] + satS), np.uint8(pixel[2] + valS)]
+    return [np.clip(pixel[0] + hueS, 0, 255).astype(np.uint8),
+            np.clip(pixel[1] + satS, 0, 255).astype(np.uint8),
+            np.clip(pixel[2] + valS, 0, 255).astype(np.uint8)]
 def transform(transformation, data, hue, sat, val):
     return np.array([[transformation(pixel, hue, sat, val) for pixel in column] for column in data])
 
